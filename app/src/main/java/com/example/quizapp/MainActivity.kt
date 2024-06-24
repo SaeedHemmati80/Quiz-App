@@ -4,7 +4,6 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.quizapp.databinding.ActivityMainBinding
@@ -29,7 +28,6 @@ class MainActivity : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
 
-        // Sign up button
         binding.btnSignup.setOnClickListener {
             binding.apply {
                 if (
@@ -104,7 +102,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-
     }
 
     private fun showProgressDialog() {
@@ -120,6 +117,16 @@ class MainActivity : AppCompatActivity() {
         if (::progressDialog.isInitialized && progressDialog.isShowing) {
             progressDialog.dismiss()
         }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        hideProgressDialog() // Ensure the progress dialog is dismissed when the activity stops
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        hideProgressDialog() // Ensure the progress dialog is dismissed when the activity is destroyed
     }
 
     override fun onStart() {

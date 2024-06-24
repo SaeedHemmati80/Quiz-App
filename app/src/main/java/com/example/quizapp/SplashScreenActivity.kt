@@ -14,7 +14,6 @@ import androidx.core.view.WindowInsetsCompat
 class SplashScreenActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_splash_screen)
 
 
@@ -23,7 +22,7 @@ class SplashScreenActivity : AppCompatActivity() {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()
-        }, 1800) // 1800 is the delayed time in milliseconds.
+        }, 2000) // 1800 is the delayed time in milliseconds.
 
     }
 }
