@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_margin="10dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_margin="4dp"
     android:elevation="10dp"
     android:background="@color/black"
     android:backgroundTint="#F0F0F8"
@@ -21,7 +22,8 @@
             android:layout_width="200dp"
             android:layout_height="150dp"
             android:layout_marginTop="10dp"
-            android:padding="30dp"
+            android:padding="20dp"
+            app:layout_constraintDimensionRatio="H,1:1"
             android:scaleType="centerCrop"
             android:src="@drawable/science"
             app:layout_constraintEnd_toEndOf="parent"
@@ -29,9 +31,10 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <View
+            android:id="@+id/view2"
             android:layout_width="0dp"
-            android:layout_marginHorizontal="10dp"
             android:layout_height="1dp"
+            android:layout_marginHorizontal="10dp"
             android:layout_marginTop="9dp"
             android:layout_marginBottom="2dp"
             android:background="#4AB5B5B5"
@@ -40,7 +43,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/img_category" />
 
-        <TextView
+          <TextView
             android:id="@+id/tv_category"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -54,6 +57,18 @@
             app:layout_constraintEnd_toEndOf="@+id/img_category"
             app:layout_constraintStart_toStartOf="@+id/img_category"
             app:layout_constraintTop_toBottomOf="@+id/img_category" />
+
+        <ImageView
+            android:id="@+id/img_lock"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="4dp"
+            android:padding="2dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_category"
+            app:layout_constraintEnd_toStartOf="@+id/tv_category"
+            app:layout_constraintTop_toBottomOf="@+id/view2"
+            app:srcCompat="@drawable/lock" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

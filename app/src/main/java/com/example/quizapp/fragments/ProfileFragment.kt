@@ -77,6 +77,7 @@ class ProfileFragment : Fragment() {
                     for (dataSnap in snapshot.children) {
                         val user = dataSnap.getValue(User::class.java)
                         binding.apply {
+                            tvMyname.text = user?.name
                             tvNameValue.text = user?.name
                             tvEmailValue.text = user?.email
                             tvPassValue.text = user?.password

@@ -2,6 +2,7 @@ package com.example.quizapp.fragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +15,12 @@ import com.example.quizapp.WithdrawalFragment
 import com.example.quizapp.adapter.CategoryAdapter
 import com.example.quizapp.databinding.FragmentHomeBinding
 import com.example.quizapp.model.Category
+import com.example.quizapp.model.User
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 
 class HomeFragment : Fragment() {
@@ -45,6 +51,25 @@ class HomeFragment : Fragment() {
             bottomSheetDialogFragment.enterTransition
         }
 
+        // Fetch data from Firebase
+        FirebaseDatabase.getInstance().reference.child("Users")
+            .addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    // Set data to personal information
+                    for (dataSnap in snapshot.children) {
+                        val user = dataSnap.getValue(User::class.java)
+                        binding.apply {
+                            tvMynameHome.text = user?.name
+
+                        }
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    Log.e("7233", "Database error: ${error.message}")
+                }
+            })
+
 
         return binding.root
     }
@@ -52,9 +77,10 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.recyclerCategory.adapter = CategoryAdapter(requireContext(), dataCategory()){category ->
+        binding.recyclerCategory.adapter = CategoryAdapter(requireContext(), dataCategory()){
             val intent = Intent(requireContext(), QuizActivity::class.java).apply {
-                putExtra("category_image", category.categoryImg)
+                putExtra("category_image", it.categoryImg)
+                putExtra("category_title", it.categoryTxt)
             }
             startActivity(intent)
 
@@ -65,10 +91,10 @@ class HomeFragment : Fragment() {
     }
 
      fun dataCategory() = arrayListOf(
-        Category("Science", R.drawable.science),
-        Category("English", R.drawable.english),
-        Category("History", R.drawable.history_book),
-        Category("Mathematics", R.drawable.math),
+        Category("Flag", R.drawable.flag, R.drawable.lock),
+        Category("English", R.drawable.english, R.drawable.lock),
+        Category("History", R.drawable.history_book, R.drawable.lock),
+        Category("Mathematics", R.drawable.math, R.drawable.lock),
     )
 
 }

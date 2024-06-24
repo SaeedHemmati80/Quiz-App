@@ -10,7 +10,12 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.example.quizapp.WithdrawalFragment
 import com.example.quizapp.databinding.FragmentSpinBinding
+import com.example.quizapp.model.User
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import kotlin.random.Random
 
 
@@ -81,6 +86,25 @@ class SpinFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentSpinBinding.inflate(inflater, container, false)
+
+        // Fetch data from Firebase
+        FirebaseDatabase.getInstance().reference.child("Users")
+            .addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    // Set data to personal information
+                    for (dataSnap in snapshot.children) {
+                        val user = dataSnap.getValue(User::class.java)
+                        binding.apply {
+                            tvMynameHome.text = user?.name
+
+                        }
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    Log.e("7233", "Database error: ${error.message}")
+                }
+            })
         return binding.root
     }
 

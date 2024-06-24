@@ -28,7 +28,7 @@
             android:src="@drawable/avatar" />
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/tv_myname_home"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

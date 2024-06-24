@@ -1,6 +1,7 @@
 package com.example.quizapp.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,11 @@ import com.example.quizapp.adapter.HistoryAdapter
 import com.example.quizapp.databinding.FragmentHistoryBinding
 import com.example.quizapp.databinding.ItemHistoryBinding
 import com.example.quizapp.model.History
+import com.example.quizapp.model.User
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 
 class HistoryFragment : Fragment() {
@@ -27,6 +33,26 @@ class HistoryFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentHistoryBinding.inflate(inflater, container, false)
+
+        // Fetch data from Firebase
+        FirebaseDatabase.getInstance().reference.child("Users")
+            .addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    // Set data to personal information
+                    for (dataSnap in snapshot.children) {
+                        val user = dataSnap.getValue(User::class.java)
+                        binding.apply {
+                            tvMynameHome.text = user?.name
+
+                        }
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    Log.e("7233", "Database error: ${error.message}")
+                }
+            })
+
         return binding.root
     }
 
