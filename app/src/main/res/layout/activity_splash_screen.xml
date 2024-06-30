@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_gradiant"
+    android:background="@drawable/bg_gradiant_green"
     tools:context=".SplashScreenActivity">
 
     <com.airbnb.lottie.LottieAnimationView
@@ -18,7 +18,7 @@
         android:layout_marginTop="200dp"
         app:lottie_autoPlay="true"
         app:lottie_loop="false"
-        app:lottie_rawRes="@raw/lottie" />
+        app:lottie_rawRes="@raw/splash" />
 
     <TextView
         android:id="@+id/welcomeTextView"

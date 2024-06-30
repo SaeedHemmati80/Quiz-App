@@ -19,7 +19,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-
         <ImageView
             android:id="@+id/imageView2"
             android:layout_width="35dp"
@@ -80,82 +79,6 @@
         app:layout_constraintStart_toStartOf="@+id/view"
         app:layout_constraintTop_toBottomOf="@+id/view" />
 
-    <Button
-        android:id="@+id/tv_item1"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="20dp"
-        android:backgroundTint="@color/white"
-        android:padding="12dp"
-        android:text="Options1"
-        android:textAllCaps="false"
-        android:textColor="@color/black"
-        app:cornerRadius="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_question" />
-
-    <Button
-        android:id="@+id/tv_item2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:backgroundTint="@color/white"
-        android:padding="12dp"
-        android:text="Options2"
-        android:textAllCaps="false"
-        android:textColor="@color/black"
-        app:cornerRadius="10dp"
-        app:layout_constraintEnd_toEndOf="@+id/tv_item1"
-        app:layout_constraintStart_toStartOf="@+id/tv_item1"
-        app:layout_constraintTop_toBottomOf="@+id/tv_item1" />
-
-    <Button
-        android:id="@+id/tv_item3"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:backgroundTint="@color/white"
-        android:padding="12dp"
-        android:text="Options3"
-        android:textAllCaps="false"
-        android:textColor="@color/black"
-        app:cornerRadius="10dp"
-        app:layout_constraintEnd_toEndOf="@+id/tv_item2"
-        app:layout_constraintStart_toStartOf="@+id/tv_item2"
-        app:layout_constraintTop_toBottomOf="@+id/tv_item2" />
-
-    <Button
-        android:id="@+id/tv_item4"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:backgroundTint="@color/white"
-        android:padding="12dp"
-        android:text="Options4"
-        android:textAllCaps="false"
-        android:textColor="@color/black"
-        app:cornerRadius="10dp"
-        app:layout_constraintEnd_toEndOf="@+id/tv_item3"
-        app:layout_constraintStart_toStartOf="@+id/tv_item3"
-        app:layout_constraintTop_toBottomOf="@+id/tv_item3" />
-
-    <Button
-        android:id="@+id/btn_next_question"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:backgroundTint="@color/white"
-        android:padding="12dp"
-        android:text="Next Option"
-        android:textAllCaps="false"
-        android:textColor="@color/black"
-        app:cornerRadius="10dp"
-        app:layout_constraintEnd_toEndOf="@+id/tv_item4"
-        app:layout_constraintStart_toStartOf="@+id/tv_item4"
-        app:layout_constraintTop_toBottomOf="@+id/tv_item4" />
 
     <ImageView
         android:id="@+id/img_quiz"
@@ -167,5 +90,183 @@
         app:layout_constraintStart_toStartOf="@+id/view"
         app:layout_constraintTop_toTopOf="@+id/view"
         app:srcCompat="@drawable/history_book" />
+
+
+    <!--const Win-->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/linear_win"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_gradient_green_reverce"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animationView"
+            android:layout_width="250dp"
+            android:layout_height="320dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="false"
+            app:lottie_rawRes="@raw/winner" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_back_win"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
+            android:layout_marginEnd="60dp"
+            android:layout_marginBottom="8dp"
+            android:backgroundTint="@color/red_600"
+            android:padding="12dp"
+            android:text="Back To Home"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:cornerRadius="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!--Linear lost-->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/linear_lost"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_gradient_green_reverce"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animationLost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/sorry" />
+
+        <TextView
+            android:id="@+id/tv_lost_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="You Lost!"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="@id/animationLost"
+            app:layout_constraintStart_toStartOf="@id/animationLost"
+            app:layout_constraintTop_toBottomOf="@+id/animationLost" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_back_lost"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
+            android:layout_marginEnd="60dp"
+            android:layout_marginBottom="8dp"
+            android:backgroundTint="@color/red_600"
+            android:padding="12dp"
+            android:text="Back To Home"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:cornerRadius="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_option1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="20dp"
+        android:backgroundTint="@color/white"
+        android:padding="12dp"
+        android:text="@string/options1"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:visibility="visible"
+        app:cornerRadius="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_question" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_option2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="@color/white"
+        android:padding="12dp"
+        android:text="@string/options2"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:visibility="visible"
+        app:cornerRadius="10dp"
+        app:layout_constraintEnd_toEndOf="@+id/btn_option1"
+        app:layout_constraintStart_toStartOf="@+id/btn_option1"
+        app:layout_constraintTop_toBottomOf="@+id/btn_option1" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_option3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="@color/white"
+        android:padding="12dp"
+        android:text="@string/options3"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:visibility="visible"
+        app:cornerRadius="10dp"
+        app:layout_constraintEnd_toEndOf="@+id/btn_option2"
+        app:layout_constraintStart_toStartOf="@+id/btn_option2"
+        app:layout_constraintTop_toBottomOf="@+id/btn_option2" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_option4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="@color/white"
+        android:padding="12dp"
+        android:text="@string/options4"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:visibility="visible"
+        app:cornerRadius="10dp"
+        app:layout_constraintEnd_toEndOf="@+id/btn_option3"
+        app:layout_constraintStart_toStartOf="@+id/btn_option3"
+        app:layout_constraintTop_toBottomOf="@+id/btn_option3" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
