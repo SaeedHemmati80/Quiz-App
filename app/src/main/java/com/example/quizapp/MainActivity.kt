@@ -96,6 +96,8 @@ class MainActivity : AppCompatActivity() {
                                     e.toString(),
                                     Toast.LENGTH_SHORT
                                 ).show()
+                                Log.e("7233", e.message.toString())
+                                Log.e("7233", e.toString())
                             }
                         }
                     }

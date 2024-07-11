@@ -74,14 +74,13 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:33.1.0"))
 
     // Add the dependency for the Cloud Storage library
-    // When using the BoM, you don't specify versions in Firebase library dependencies
     implementation("com.google.firebase:firebase-storage")
 
-    // Add the dependencies for any other desired Firebase products
-    // https://firebase.google.com/docs/android/setup#available-libraries
-
     val lottieVersion = "3.4.0"
-    implementation ("com.airbnb.android:lottie:$lottieVersion")
+    implementation("com.airbnb.android:lottie:$lottieVersion")
+
+    implementation ("com.github.bumptech.glide:glide:4.16.0")
+    implementation ("com.squareup.picasso:picasso:2.8")
 
 
 

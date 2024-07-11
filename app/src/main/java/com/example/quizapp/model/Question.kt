@@ -1,12 +1,14 @@
 package com.example.quizapp.model
 
-class Question(
+
+data class Question(
+    val image_url: String = "",
     val question: String = "",
-    val item1: String = "",
-    val item2: String = "",
-    val item3: String = "",
-    val item4: String = "",
+    val option1: String = "",
+    val option2: String = "",
+    val option3: String = "",
+    val option4: String = "",
     val ans: String = "",
 
-) {
+    ) {
 }
