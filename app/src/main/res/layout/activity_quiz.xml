@@ -68,12 +68,13 @@
         android:id="@+id/tv_question"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
+        android:maxLines="3"
+        android:lines="2"
         android:text="What is your name?"
         android:textAlignment="center"
         android:textColor="@color/white"
-        android:lines="2"
-        android:textSize="18sp"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/view"
         app:layout_constraintStart_toStartOf="@+id/view"
@@ -82,9 +83,15 @@
 
     <ImageView
         android:id="@+id/img_quiz"
-        android:layout_width="180dp"
-        android:layout_height="180dp"
-        android:padding="10dp"
+        android:layout_width="250dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="40dp"
+        android:padding="30dp"
+        app:layout_constraintDimensionRatio="H,1:1"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="@+id/view"
         app:layout_constraintEnd_toEndOf="@+id/view"
         app:layout_constraintStart_toStartOf="@+id/view"
@@ -200,13 +207,41 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <!--txt timer-->
+    <TextView
+        android:id="@+id/tvTimer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="24dp"
+        android:layout_marginBottom="8dp"
+        android:text="00:30"
+        android:textColor="@android:color/black"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/view"
+        app:layout_constraintStart_toStartOf="@+id/view" />
+
+    <!--txt question counter-->
+    <TextView
+        android:id="@+id/tvQuestionCounter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="8dp"
+        android:text="1/10"
+        android:textColor="@android:color/black"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/view"
+        app:layout_constraintEnd_toEndOf="@+id/view" />
+
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_option1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="20dp"
         android:backgroundTint="@color/white"
         android:padding="12dp"
@@ -266,6 +301,23 @@
         app:layout_constraintEnd_toEndOf="@+id/btn_option3"
         app:layout_constraintStart_toStartOf="@+id/btn_option3"
         app:layout_constraintTop_toBottomOf="@+id/btn_option3" />
+
+    <!--btn next question-->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnNext"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Next"
+        android:layout_marginTop="14dp"
+        android:backgroundTint="@color/white"
+        android:padding="15dp"
+        android:textColor="@color/black"
+        android:visibility="gone"
+        app:cornerRadius="10dp"
+        app:layout_constraintEnd_toEndOf="@+id/btn_option4"
+        app:layout_constraintStart_toStartOf="@+id/btn_option4"
+        app:layout_constraintTop_toBottomOf="@+id/btn_option4" />
 
 
 

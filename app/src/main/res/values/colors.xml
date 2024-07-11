@@ -8,4 +8,6 @@
     <color name="gray">#80B2B2B2</color>
     <color name="golden">#FFE500</color>
     <color name="red_600">#E53935</color>
+    <color name="selected_button">#FFC107</color>
+    <color name="default_button">#FFFFFF</color>
 </resources>

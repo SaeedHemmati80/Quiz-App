@@ -1,11 +1,13 @@
 package com.example.quizapp
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.Log
 import android.view.View
+import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.example.quizapp.databinding.ActivityQuizBinding
 import com.example.quizapp.model.Question
@@ -32,7 +34,15 @@ class QuizActivity : AppCompatActivity() {
     private lateinit var dbReference: DatabaseReference
 
     private lateinit var countDownTimer: CountDownTimer
-    private var timeLeftInMillis: Long = 3000 // 30 seconds
+    private var timeLeftInMillis: Long = 30000 // 30 seconds
+
+    private var WINNING_SCORE: Int = 50
+    private var SCORE_INCREMENT: Int = 10
+    private val TOTAL_QUESTIONS = 10
+
+    private lateinit var nextButton: Button
+    private lateinit var selectedButton: Button
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,20 +61,92 @@ class QuizActivity : AppCompatActivity() {
 
         binding.imgQuiz.setImageResource(categoryImage)
 
-
-
-
         showProgressDialog() // Show progress dialog
 
         fetchUserData() // Fetch user data from Firebase
-
         fetchQuestionsFromRealDatabase() // Fetch questions from realtime database
-//        fetchQuestions(categoryTitle) // Fetch questions from Firestore
 
         setupOptionButtons() // Set up click listeners for option buttons
         setupBottomSheetDialog() // Set up BottomSheet dialog
         setupBackButtons() // Set up back button listeners
+
+        nextButton = binding.btnNext
+        nextButton.setOnClickListener {
+            nextQuestion()
+        }
+
+
     }
+    private fun resetOptionButtons() {
+        binding.apply {
+            btnOption1.setBackgroundColor(resources.getColor(R.color.default_button))
+            btnOption2.setBackgroundColor(resources.getColor(R.color.default_button))
+            btnOption3.setBackgroundColor(resources.getColor(R.color.default_button))
+            btnOption4.setBackgroundColor(resources.getColor(R.color.default_button))
+        }
+        nextButton.visibility = View.GONE
+    }
+
+
+    private fun nextQuestion() {
+        if (selectedButton.text.toString() == questionList[currentQuestion].ans) {
+            score += SCORE_INCREMENT
+        }
+        resetOptionButtons()
+        currentQuestion++
+        if (currentQuestion >= questionList.size || currentQuestion >= TOTAL_QUESTIONS) {
+            countDownTimer.cancel() // Stop the timer
+            endQuiz()
+        } else {
+            displayQuestion(currentQuestion)
+        }
+    }
+
+
+    private fun highlightSelectedButton(selectedButton: Button) {
+        resetOptionButtons()
+        selectedButton.setBackgroundColor(resources.getColor(R.color.selected_button))
+        nextButton.visibility = View.VISIBLE
+    }
+
+
+    private fun startTimer() {
+        countDownTimer = object : CountDownTimer(timeLeftInMillis, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                timeLeftInMillis = millisUntilFinished
+                updateCountDownText()
+            }
+
+            override fun onFinish() {
+                timeLeftInMillis = 0
+                updateCountDownText()
+                endQuiz() // When the timer finishes, end the quiz
+            }
+        }.start()
+    }
+
+    @SuppressLint("DefaultLocale")
+    private fun updateCountDownText() {
+        val minutes = (timeLeftInMillis / 1000) / 60
+        val seconds = (timeLeftInMillis / 1000) % 60
+        val timeFormatted = String.format("%02d:%02d", minutes, seconds)
+        binding.tvTimer.text = timeFormatted
+    }
+
+    private fun endQuiz() {
+        if (score >= WINNING_SCORE) {
+            binding.tvQuestionCounter.visibility = View.GONE
+            binding.tvTimer.visibility = View.GONE
+            binding.linearWin.visibility = View.VISIBLE
+        } else {
+            binding.tvQuestionCounter.visibility = View.GONE
+            binding.tvTimer.visibility = View.GONE
+            binding.linearLost.visibility = View.VISIBLE
+        }
+        goneOptionsButtons() // Hide option buttons
+    }
+
+
 
     // Fetch user data from Firebase Realtime Database
     private fun fetchUserData() {
@@ -95,6 +177,7 @@ class QuizActivity : AppCompatActivity() {
                 if (questionList.isNotEmpty()) {
                     questionList.shuffle() // Shuffle the question for display
                     displayQuestion(currentQuestion) // Display the first question
+                    startTimer() // Start the timer
                 } else {
                     Log.e("Error", "No questions found in the list")
                 }
@@ -109,6 +192,7 @@ class QuizActivity : AppCompatActivity() {
     }
 
     // Display question at the specified index and shuffle options
+    @SuppressLint("SetTextI18n")
     private fun displayQuestion(index: Int) {
         if (index < questionList.size) {
             val question = questionList[index]
@@ -130,6 +214,7 @@ class QuizActivity : AppCompatActivity() {
                         .load(question.image_url)
                         .into(binding.imgQuiz)
                 }
+                tvQuestionCounter.text = "${index + 1}/${TOTAL_QUESTIONS}" // Update question counter
 
             }
         }
@@ -137,30 +222,37 @@ class QuizActivity : AppCompatActivity() {
 
     // Move to the next question and update the score if the selected option is correct
     private fun nextToQuestionAndUpdateScore(selectedOption: String) {
-        if (selectedOption == questionList[currentQuestion].ans) {
-            score += 10
-        }
-        currentQuestion++
-        if (currentQuestion >= questionList.size) {
-            if (score >= 10) {
-                binding.linearWin.visibility = View.VISIBLE // Show win view if score is 20 or more
-            } else {
-                binding.linearLost.visibility =
-                    View.VISIBLE // Show lost view if score is less than 20
-            }
-            goneOptionsButtons() // Hide option buttons
-        } else {
-            displayQuestion(currentQuestion) // Display the next question
+        selectedButton = when (selectedOption) {
+            binding.btnOption1.text.toString() -> binding.btnOption1
+            binding.btnOption2.text.toString() -> binding.btnOption2
+            binding.btnOption3.text.toString() -> binding.btnOption3
+            binding.btnOption4.text.toString() -> binding.btnOption4
+            else -> throw IllegalStateException("Unknown option selected")
         }
     }
 
+
     // Set up click listeners for option buttons
     private fun setupOptionButtons() {
-        binding.btnOption1.setOnClickListener { nextToQuestionAndUpdateScore(binding.btnOption1.text.toString()) }
-        binding.btnOption2.setOnClickListener { nextToQuestionAndUpdateScore(binding.btnOption2.text.toString()) }
-        binding.btnOption3.setOnClickListener { nextToQuestionAndUpdateScore(binding.btnOption3.text.toString()) }
-        binding.btnOption4.setOnClickListener { nextToQuestionAndUpdateScore(binding.btnOption4.text.toString()) }
+        binding.btnOption1.setOnClickListener {
+            highlightSelectedButton(binding.btnOption1)
+            nextToQuestionAndUpdateScore(binding.btnOption1.text.toString())
+        }
+        binding.btnOption2.setOnClickListener {
+            highlightSelectedButton(binding.btnOption2)
+            nextToQuestionAndUpdateScore(binding.btnOption2.text.toString())
+        }
+        binding.btnOption3.setOnClickListener {
+            highlightSelectedButton(binding.btnOption3)
+            nextToQuestionAndUpdateScore(binding.btnOption3.text.toString())
+        }
+        binding.btnOption4.setOnClickListener {
+            highlightSelectedButton(binding.btnOption4)
+            nextToQuestionAndUpdateScore(binding.btnOption4.text.toString())
+        }
     }
+
+
 
     // Set up BottomSheet dialog for withdrawal options
     private fun setupBottomSheetDialog() {
